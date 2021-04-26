@@ -1,4 +1,4 @@
-package org.loose.fis.sre.controllers;
+package org.loose.fis.av.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -17,6 +17,12 @@ public class RegistrationController {
     @FXML
     private TextField usernameField;
     @FXML
+    private TextField surnameField;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField codeField;
+    @FXML
     private ChoiceBox role;
 
     @FXML
@@ -27,7 +33,7 @@ public class RegistrationController {
     @FXML
     public void handleRegisterAction() {
         try {
-            UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue());
+            UserService.addUser(usernameField.getText(), passwordField.getText(),surnameField.getText(),nameField.getText(),codeField.getText(),(String) role.getValue());
             registrationMessage.setText("Account created successfully!");
         } catch (UsernameAlreadyExistsException e) {
             registrationMessage.setText(e.getMessage());

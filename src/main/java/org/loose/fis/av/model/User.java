@@ -6,11 +6,17 @@ public class User {
     @Id
     private String username;
     private String password;
+    private String surname;
+    private String name;
+    private String code;
     private String role;
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, String surname, String name, String code, String role) {
         this.username = username;
         this.password = password;
+        this.surname = surname;
+        this.name = name;
+        this.code = code;
         this.role = role;
     }
 
@@ -31,6 +37,30 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getRole() {
