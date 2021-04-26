@@ -1,16 +1,16 @@
-package org.loose.fis.sre.services;
+package org.loose.fis.av.services;
 
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
-import org.loose.fis.sre.exceptions.UsernameAlreadyExistsException;
-import org.loose.fis.sre.model.User;
+import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
+import org.loose.fis.av.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
-import static org.loose.fis.sre.services.FileSystemService.getPathToFile;
+import static org.loose.fis.av.services.FileSystemService.getPathToFile;
 
 public class UserService {
 
@@ -18,7 +18,7 @@ public class UserService {
 
     public static void initDatabase() {
         Nitrite database = Nitrite.builder()
-                .filePath(getPathToFile("registration-example.db").toFile())
+                .filePath(getPathToFile("Aplicatie-Vaccin.db").toFile())
                 .openOrCreate("test", "test");
 
         userRepository = database.getRepository(User.class);
