@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="900" prefWidth="600" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.LogInController">
+<GridPane alignment="center" hgap="10" prefHeight="300" prefWidth="300" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.LogInController">
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
@@ -27,7 +27,7 @@
 
         <HBox alignment="bottom_right" prefHeight="25.0" prefWidth="125.0" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <children>
-            <Button onAction="#handleChangeSceneRegister" text="Register" />
+            <Button mnemonicParsing="false" onAction="#changeToRegister" text="Register" />
                 <Button onAction="#handleLogInAction" text="Log In" />
             </children>
         </HBox>

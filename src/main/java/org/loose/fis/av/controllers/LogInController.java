@@ -2,6 +2,7 @@ package org.loose.fis.av.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -13,6 +14,9 @@ import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
 import org.loose.fis.av.exceptions.UsernameAndPasswordDoNotMatchException;
 import org.loose.fis.av.exceptions.UserDoesNotExist;
 import org.loose.fis.av.services.UserService;
+
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class LogInController {
     @FXML
@@ -34,12 +38,20 @@ public class LogInController {
             loginMessage.setText(e.getMessage());
         }
     }
-    public void handleChangeSceneRegister() throws Exception
-    {
-            Stage secondaryStage= new Stage();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
-            secondaryStage.setTitle("Create Account AV");
-            secondaryStage.setScene(new Scene(root, 300, 300));
-            secondaryStage.show();
+    @FXML
+    public void changeToRegister(javafx.event.ActionEvent actionEvent) {
+        Parent RegisterView = null;
+        try {
+            RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene registerViewScene = new Scene(RegisterView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(registerViewScene);
+        window.show();
     }
 }
