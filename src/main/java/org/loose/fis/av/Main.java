@@ -18,7 +18,7 @@ public class Main extends Application {
         initDirectory();
         UserService.initDatabase();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
-        primaryStage.setTitle("Log In AV");
+        primaryStage.setTitle("Aplicatie Inscriere Vaccin");
         primaryStage.setScene(new Scene(root, 300, 300));
         primaryStage.show();
     }
