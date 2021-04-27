@@ -2,15 +2,20 @@ package org.loose.fis.av.services;
 
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.loose.fis.av.exceptions.InvalidEmailException;
 import org.loose.fis.av.exceptions.UserDoesNotExist;
 import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
 import org.loose.fis.av.exceptions.UsernameAndPasswordDoNotMatchException;
+import org.loose.fis.av.exceptions.InvalidEmailException;
 import org.loose.fis.av.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
 import static org.loose.fis.av.services.FileSystemService.getPathToFile;
 
@@ -26,8 +31,9 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
-    public static void addUser(String username, String password, String surname, String name, String code, String role) throws UsernameAlreadyExistsException {
+    public static void addUser(String username, String password, String surname, String name, String code, String role) throws UsernameAlreadyExistsException,InvalidEmailException{
         checkUserDoesNotAlreadyExist(username);
+        checkValidEmail(username);
         userRepository.insert(new User(username, encodePassword(username, password), surname, name, code, role));
     }
     public static boolean logIn(String username,String password) throws UserDoesNotExist,UsernameAndPasswordDoNotMatchException{
@@ -68,6 +74,12 @@ public class UserService {
 
                     throw new UsernameAndPasswordDoNotMatchException();
             }
+        }
+    }
+
+    private static void checkValidEmail(String username) throws InvalidEmailException {
+        if(username.contains("@yahoo.com") == false && username.contains("@gmail.com") == false && username.contains("@student.upt.ro") == false){
+            throw new InvalidEmailException(username);
         }
     }
 
