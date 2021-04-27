@@ -2,7 +2,9 @@ package org.loose.fis.av.services;
 
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.loose.fis.av.exceptions.UserDoesNotExist;
 import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
+import org.loose.fis.av.exceptions.UsernameAndPasswordDoNotMatchException;
 import org.loose.fis.av.model.User;
 
 import java.nio.charset.StandardCharsets;
@@ -28,11 +30,44 @@ public class UserService {
         checkUserDoesNotAlreadyExist(username);
         userRepository.insert(new User(username, encodePassword(username, password), surname, name, code, role));
     }
+    public static boolean logIn(String username,String password) throws UserDoesNotExist,UsernameAndPasswordDoNotMatchException{
+        boolean ok=false;
+        for (User user : userRepository.find()) {
+            if (Objects.equals(username, user.getUsername())) {
+                if (Objects.equals(encodePassword(username, password), user.getPassword()))
+
+                    ok=true;
+            }
+        }
+        checkUserDoesNotExist(username);
+        checkUserAndPasswordDoNotMatch(username,password);
+        return ok;
+    }
 
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername()))
                 throw new UsernameAlreadyExistsException(username);
+        }
+    }
+    private static void checkUserDoesNotExist(String username) throws UserDoesNotExist {
+        boolean check =false;
+        for (User user : userRepository.find()) {
+            if (Objects.equals(username, user.getUsername())) {
+                check = true;
+            }
+        }
+        if(!check) {
+            throw new UserDoesNotExist(username);
+        }
+    }
+    private static void checkUserAndPasswordDoNotMatch(String username,String password) throws UsernameAndPasswordDoNotMatchException {
+        for (User user : userRepository.find()) {
+            if (Objects.equals(username, user.getUsername())) {
+                if (!Objects.equals(encodePassword(username, password), user.getPassword()))
+
+                    throw new UsernameAndPasswordDoNotMatchException();
+            }
         }
     }
 
