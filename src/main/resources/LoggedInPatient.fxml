@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -9,9 +10,7 @@
 <AnchorPane prefHeight="416.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.LoggedInPatientController">
    <children>
       <TextField editable="false" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" text="Patient: " />
-      <TextField editable="false" layoutX="54.0" layoutY="14.0" prefHeight="25.0" prefWidth="233.0" />
       <TextField editable="false" layoutX="307.0" layoutY="14.0" prefHeight="25.0" prefWidth="101.0" text="Grupa de varsta:" />
-      <TextField editable="false" layoutX="408.0" layoutY="14.0" />
       <SplitPane dividerPositions="0.5040431266846361" layoutY="46.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="600.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="598.0">
@@ -28,5 +27,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
+      <Text fx:id="patientname" layoutX="61.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="209.13671875" />
+      <Text fx:id="Vgroup" layoutX="414.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="113.13671875" />
    </children>
 </AnchorPane>

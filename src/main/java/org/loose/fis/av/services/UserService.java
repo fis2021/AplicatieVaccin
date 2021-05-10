@@ -2,11 +2,9 @@ package org.loose.fis.av.services;
 
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.loose.fis.av.exceptions.*;
 import org.loose.fis.av.exceptions.InvalidEmailException;
-import org.loose.fis.av.exceptions.UserDoesNotExist;
-import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
-import org.loose.fis.av.exceptions.UsernameAndPasswordDoNotMatchException;
-import org.loose.fis.av.exceptions.InvalidEmailException;
+import org.loose.fis.av.exceptions.InvalidCodeException;
 import org.loose.fis.av.model.User;
 
 import java.nio.charset.StandardCharsets;
@@ -31,9 +29,10 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
-    public static void addUser(String username, String password, String surname, String name, String code, String role) throws UsernameAlreadyExistsException,InvalidEmailException{
+    public static void addUser(String username, String password, String surname, String name, String code, String role) throws UsernameAlreadyExistsException, InvalidEmailException, InvalidCodeException {
         checkUserDoesNotAlreadyExist(username);
         checkValidEmail(username);
+        checkValidCode(code,role);
         userRepository.insert(new User(username, encodePassword(username, password), surname, name, code, role));
     }
     public static User logIn(String username,String password) throws UserDoesNotExist,UsernameAndPasswordDoNotMatchException{
@@ -46,8 +45,6 @@ public class UserService {
                 {
                     LoggedInUser=new User(user.getUsername(),user.getPassword(),user.getSurname(),user.getName(),user.getCode(),user.getRole());
                 }
-
-
             }
             }
         return LoggedInUser;
@@ -86,6 +83,17 @@ public class UserService {
     private static void checkValidEmail(String username) throws InvalidEmailException {
         if(username.contains("@yahoo.com") == false && username.contains("@gmail.com") == false && username.contains("@student.upt.ro") == false){
             throw new InvalidEmailException(username);
+        }
+    }
+
+    private static void checkValidCode (String code, String role) throws InvalidCodeException {
+        if (code.length() != 13 && Objects.equals("Patient", role)) {
+            throw new InvalidCodeException(code);
+        }
+        else {
+            if(code.length() != 3 && Objects.equals("Manager",role)){
+                throw new InvalidCodeException(code);
+            }
         }
     }
 

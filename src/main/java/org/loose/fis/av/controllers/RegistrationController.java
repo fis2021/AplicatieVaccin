@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.InvalidCodeException;
 import org.loose.fis.av.exceptions.InvalidEmailException;
 import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
 import org.loose.fis.av.services.UserService;
@@ -49,6 +50,9 @@ public class RegistrationController {
             registrationMessage.setText(e.getMessage());
         }
         catch (InvalidEmailException e) {
+            registrationMessage.setText(e.getMessage());
+        }
+        catch (InvalidCodeException e) {
             registrationMessage.setText(e.getMessage());
         }
     }
