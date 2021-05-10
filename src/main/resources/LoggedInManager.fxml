@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="416.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.LoggedInManagerController">
+    <children>
+        <TextField editable="false" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" text="Patient: " />
+        <TextField editable="false" layoutX="54.0" layoutY="14.0" prefHeight="25.0" prefWidth="233.0" />
+        <TextField editable="false" layoutX="307.0" layoutY="14.0" prefHeight="25.0" prefWidth="101.0" text="Grupa de varsta:" />
+        <TextField editable="false" layoutX="408.0" layoutY="14.0" />
+        <SplitPane dividerPositions="0.5040431266846361" layoutY="46.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="600.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="598.0">
+                    <children>
+                        <ListView layoutX="-25.0" layoutY="-38.0" prefHeight="166.0" prefWidth="598.0" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="598.0">
+                    <children>
+                        <Button layoutX="68.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="86.0" text="Programeaza" />
+                        <Button layoutX="235.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" text="Programari unitate" />
+                        <Button layoutX="470.0" layoutY="74.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="39.0" prefWidth="66.0" text="Log out" />
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

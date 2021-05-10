@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoggedInPatientController {
+public class LoggedInManagerController {
     @FXML
     public void LogOut(javafx.event.ActionEvent actionEvent) {
         Parent RegisterView = null;
@@ -27,4 +27,5 @@ public class LoggedInPatientController {
         window.show();
 
     }
+
 }

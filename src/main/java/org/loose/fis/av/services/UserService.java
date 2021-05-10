@@ -36,19 +36,25 @@ public class UserService {
         checkValidEmail(username);
         userRepository.insert(new User(username, encodePassword(username, password), surname, name, code, role));
     }
-    public static boolean logIn(String username,String password) throws UserDoesNotExist,UsernameAndPasswordDoNotMatchException{
-        boolean ok=false;
+    public static User logIn(String username,String password) throws UserDoesNotExist,UsernameAndPasswordDoNotMatchException{
+        checkUserDoesNotExist(username);
+        checkUserAndPasswordDoNotMatch(username,password);
+        User LoggedInUser=new User("fals","fals","fals","fals","fals","fals");
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
                 if (Objects.equals(encodePassword(username, password), user.getPassword()))
+                {
+                    LoggedInUser=new User(user.getUsername(),user.getPassword(),user.getSurname(),user.getName(),user.getCode(),user.getRole());
+                }
 
-                    ok=true;
+
             }
+            }
+        return LoggedInUser;
+
         }
-        checkUserDoesNotExist(username);
-        checkUserAndPasswordDoNotMatch(username,password);
-        return ok;
-    }
+
+
 
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : userRepository.find()) {

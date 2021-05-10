@@ -23,7 +23,7 @@
                <children>
                   <Button layoutX="68.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="86.0" text="Programeaza" />
                   <Button layoutX="235.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" text="Programarile mele" />
-                  <Button layoutX="470.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="66.0" text="Log out" />
+                  <Button layoutX="470.0" layoutY="74.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="39.0" prefWidth="66.0" text="Log out" />
                </children>
             </AnchorPane>
         </items>
