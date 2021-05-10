@@ -6,12 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="416.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoggedInPatient">
+<AnchorPane prefHeight="416.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.LoggedInPatientController">
    <children>
-      <TextField layoutY="14.0" prefHeight="25.0" prefWidth="54.0" text="Patient: " />
+      <TextField editable="false" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" text="Patient: " />
       <TextField editable="false" layoutX="54.0" layoutY="14.0" prefHeight="25.0" prefWidth="233.0" />
-      <TextField layoutX="307.0" layoutY="14.0" prefHeight="25.0" prefWidth="101.0" text="Grupa de varsta:" />
+      <TextField editable="false" layoutX="307.0" layoutY="14.0" prefHeight="25.0" prefWidth="101.0" text="Grupa de varsta:" />
       <TextField editable="false" layoutX="408.0" layoutY="14.0" />
       <SplitPane dividerPositions="0.5040431266846361" layoutY="46.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="600.0">
         <items>
