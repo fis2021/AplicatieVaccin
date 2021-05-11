@@ -15,7 +15,12 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="598.0">
                <children>
-                  <ListView layoutX="-25.0" layoutY="-38.0" prefHeight="166.0" prefWidth="598.0" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TableView fx:id="table" layoutX="-3.0" layoutY="-8.0" prefHeight="192.0" prefWidth="572.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="col_nume" prefWidth="453.0" text="Nume Unitate" />
+                      <TableColumn fx:id="col_loc" minWidth="0.0" prefWidth="144.0" text="Locuri libere" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="598.0">

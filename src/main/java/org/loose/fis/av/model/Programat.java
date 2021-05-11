@@ -4,10 +4,12 @@ public class Programat {
 
     private String nume;
     private String data;
+    private String CNP;
 
-    public Programat(String nume, String data){
+    public Programat(String nume, String data,String cod){
         this.nume = nume;
         this.data = data;
+        CNP = cod;
     }
 
     public String getNume() {
@@ -16,5 +18,9 @@ public class Programat {
 
     public String getData() {
         return data;
+    }
+
+    public String getCNP(){
+        return CNP;
     }
 }

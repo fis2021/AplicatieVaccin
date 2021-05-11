@@ -1,5 +1,9 @@
 package org.loose.fis.av.controllers;
 
+import com.sun.scenario.effect.Blend;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
@@ -11,9 +15,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.dizitart.no2.NitriteBuilder;
 import org.loose.fis.av.controllers.LogInController;
+import org.loose.fis.av.model.ModelTable;
+import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
 import org.loose.fis.av.services.SessionService;
+import org.loose.fis.av.services.FileUnitateService;
 
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
+import javax.validation.constraints.Null;
 import java.awt.*;
 import java.io.IOException;
 
@@ -51,9 +62,18 @@ public class LoggedInPatientController {
     }
 
     @FXML
+    private TableView<ModelTable> table;
+    @FXML
+    private TableColumn<ModelTable,String> col_nume;
+    @FXML
+    private TableColumn<ModelTable,String> col_loc;
+    @FXML
     public Text patientname;
     @FXML
     public Text Vgroup;
+
+    ObservableList<ModelTable> oblist = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize(){
@@ -71,6 +91,13 @@ public class LoggedInPatientController {
                 }
             }
         }
+        for(Unitate unitate2 : FileUnitateService.unitateRepository.find()){
+            oblist.add(new ModelTable(unitate2.getNume(), String.valueOf(FileUnitateService.checkemptyplaces(unitate2.getCod_unit()))));
+        }
+        col_nume.setCellValueFactory(new PropertyValueFactory<>("nume"));
+        col_loc.setCellValueFactory(new PropertyValueFactory<>("locuri"));
+
+        table.setItems(oblist);
     }
     @FXML
     public void LogOut(javafx.event.ActionEvent actionEvent) {
