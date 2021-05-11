@@ -29,6 +29,9 @@ public class Unitate {
     public String getNume() {
         return nume;
     }
+    public Programat getProgramat(int j) {
+        return progamati[j];
+    }
 
     public String getLocalitate() {
         return localitate;
