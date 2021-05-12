@@ -107,6 +107,27 @@ public class UserService {
         }
     }
 
+    public static boolean checkifAppointmentExists(){
+        boolean ok = false;
+        for(Unitate unitate : FileUnitateService.unitateRepository.find()){
+            for(int i = 0; i < unitate.getContor(); i++){
+                if(unitate.getProgramat(i) != null){
+                    if(Objects.equals(unitate.getProgramat(i).getCNP(),SessionService.getLoggedInUser().getCode())){
+                        ok = true;
+                    }
+                }
+
+            }
+        }
+        return ok;
+    }
+
+    public static void checkAppointment() throws NoAppointmentsException {
+        if(checkifAppointmentExists() == false){
+            throw  new NoAppointmentsException();
+        }
+    }
+
     private static String encodePassword(String salt, String password) {
         MessageDigest md = getMessageDigest();
         md.update(salt.getBytes(StandardCharsets.UTF_8));

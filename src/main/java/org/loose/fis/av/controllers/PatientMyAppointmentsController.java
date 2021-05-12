@@ -42,7 +42,11 @@ public class PatientMyAppointmentsController {
             }
         }
     }
-
+    @FXML
+    public void deleteMyAppointment(javafx.event.ActionEvent actionEvent){
+        FileUnitateService.deleteAppointment();
+        returnHome(actionEvent);
+    }
 
     @FXML
     public void returnHome(javafx.event.ActionEvent actionEvent) {

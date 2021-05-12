@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.dizitart.no2.NitriteBuilder;
 import org.loose.fis.av.controllers.LogInController;
+import org.loose.fis.av.exceptions.NoAppointmentsException;
 import org.loose.fis.av.model.ModelTable;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
@@ -23,10 +24,12 @@ import org.loose.fis.av.services.FileUnitateService;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.loose.fis.av.services.UserService;
 
 import javax.validation.constraints.Null;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.loose.fis.av.services.FileSystemService.getPathToFile;
 
@@ -70,6 +73,8 @@ public class LoggedInPatientController {
     public Text patientname;
     @FXML
     public Text Vgroup;
+    @FXML
+    public Text errormessage;
 
     ObservableList<ModelTable> oblist = FXCollections.observableArrayList();
 
@@ -99,6 +104,7 @@ public class LoggedInPatientController {
         table.setItems(oblist);
     }
 
+
     @FXML
     public void MakeAppointment(javafx.event.ActionEvent actionEvent) {
         Parent RegisterView = null;
@@ -118,21 +124,25 @@ public class LoggedInPatientController {
     }
 
     @FXML
-    public void MyAppointments(javafx.event.ActionEvent actionEvent) {
-        Parent RegisterView = null;
+    public void MyAppointments(javafx.event.ActionEvent actionEvent) throws NoAppointmentsException {
         try {
-            RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("PatientMyAppointments.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            UserService.checkAppointment();
+            Parent RegisterView = null;
+            try {
+                RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("PatientMyAppointments.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene registerViewScene = new Scene(RegisterView);
+
+            //This line gets the Stage information
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            window.setScene(registerViewScene);
+            window.show();
+        } catch (NoAppointmentsException e) {
+            errormessage.setText(e.getMessage());
         }
-        Scene registerViewScene = new Scene(RegisterView);
-
-        //This line gets the Stage information
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-
-        window.setScene(registerViewScene);
-        window.show();
-
     }
 
     @FXML
