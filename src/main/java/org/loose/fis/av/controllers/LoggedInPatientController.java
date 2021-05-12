@@ -118,6 +118,24 @@ public class LoggedInPatientController {
     }
 
     @FXML
+    public void MyAppointments(javafx.event.ActionEvent actionEvent) {
+        Parent RegisterView = null;
+        try {
+            RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("PatientMyAppointments.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene registerViewScene = new Scene(RegisterView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(registerViewScene);
+        window.show();
+
+    }
+
+    @FXML
     public void LogOut(javafx.event.ActionEvent actionEvent) {
         Parent RegisterView = null;
         try {

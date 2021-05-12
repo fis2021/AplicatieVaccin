@@ -5,48 +5,45 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.loose.fis.av.exceptions.AppointmentAlreadyExists;
-import org.loose.fis.av.exceptions.InvalidDateException;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.services.FileUnitateService;
+import org.loose.fis.av.services.SessionService;
+
 
 import java.io.IOException;
+import java.util.Objects;
 
-public class MakeAppointmentController {
-
-    @FXML
-    public Text appointmentmessage;
+public class PatientMyAppointmentsController {
 
     @FXML
-    public ChoiceBox UnitateV;
+    public Text nume;
 
     @FXML
-    public TextField data;
+    public Text CNP;
 
+    @FXML
+    public Text unitateP;
+
+    @FXML
+    public Text data;
+
+    @FXML
     public void initialize(){
+        nume.setText(SessionService.getLoggedInUser().getSurname() + " " + SessionService.getLoggedInUser().getName());
+        CNP.setText(SessionService.getLoggedInUser().getCode());
         for(Unitate unitate : FileUnitateService.unitateRepository.find()){
-            UnitateV.getItems().addAll(unitate.getNume());
+            for(int i = 0; i < unitate.getContor(); i++){
+                if(Objects.equals(unitate.getProgramat(i).getCNP(),SessionService.getLoggedInUser().getCode())){
+                    unitateP.setText(unitate.getNume());
+                    data.setText(unitate.getProgramat(i).getData());
+                }
+            }
         }
     }
-    @FXML
-    public void MakeAppointment(){
-        try{
-            FileUnitateService.addAppointment((String) UnitateV.getValue(),data.getText());
-            appointmentmessage.setText("Programarea a fost facuta cu success");
-        }
-        catch (InvalidDateException e) {
-            appointmentmessage.setText(e.getMessage());
-        }
-        catch (AppointmentAlreadyExists e) {
-            appointmentmessage.setText(e.getMessage());
-        }
 
 
-    }
     @FXML
     public void returnHome(javafx.event.ActionEvent actionEvent) {
         Parent RegisterView = null;
