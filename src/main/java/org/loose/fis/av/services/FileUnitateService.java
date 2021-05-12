@@ -2,6 +2,8 @@ package org.loose.fis.av.services;
 
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.loose.fis.av.exceptions.InvalidDateException;
+import org.loose.fis.av.model.Programat;
 import org.loose.fis.av.model.Unitate;
 
 
@@ -42,6 +44,54 @@ public class FileUnitateService {
             }
         }
         return 0;
+    }
+
+    public static void addAppointment(String nume,String data) throws InvalidDateException{
+        checkValidDate(data);
+        for(Unitate unitate : unitateRepository.find()){
+            if(Objects.equals(nume,unitate.getNume())){
+                Programat prog = new Programat(SessionService.getLoggedInUser().getSurname() + " " + SessionService.getLoggedInUser().getName() , data , SessionService.getLoggedInUser().getCode());
+                unitate.addProgramat(prog);
+                unitateRepository.update(unitate);
+            }
+        }
+    }
+
+    public static void checkValidDate(String data) throws InvalidDateException {
+        int temp1;
+        Character temp2;
+        int temp3 ;
+        Character temp4;
+        int temp5 ;
+        Character slash = '/';
+
+        temp1 = Character.getNumericValue(data.charAt(0)) * 10 + Character.getNumericValue(data.charAt(1));
+        temp2 = data.charAt(2);
+        temp3 = Character.getNumericValue(data.charAt(3)) * 10 + Character.getNumericValue(data.charAt(4));
+        temp4 = data.charAt(5);
+        temp5 = Character.getNumericValue(data.charAt(6)) * 1000 + Character.getNumericValue(data.charAt(7)) * 100 + Character.getNumericValue(data.charAt(8)) * 10 + Character.getNumericValue(data.charAt(9));
+
+
+        if(temp1 > 31 || temp1 < 1){
+            throw new InvalidDateException(data);
+        }
+
+        if(!temp2.equals(slash)){
+            throw new InvalidDateException(data);
+        }
+
+        if(temp3 > 12 || temp3 < 1){
+            throw new InvalidDateException(data);
+        }
+
+        if(!temp4.equals(slash)){
+            throw new InvalidDateException(data);
+        }
+
+        if(temp5 > 3000 || temp5 < 2021){
+            throw new InvalidDateException(data);
+        }
+
     }
 
 

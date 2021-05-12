@@ -7,6 +7,7 @@ public class Unitate {
 
     private String nume;
     private String localitate;
+    @Id
     private String cod_unit;
     private Programat progamati[] = new Programat[100];
     private int i = 0;

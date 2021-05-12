@@ -37,7 +37,6 @@ public class LoggedInPatientController {
         int sum = 0;
         int grp = 0;
         temp = Character.getNumericValue(SessionService.getLoggedInUser().getCode().charAt(5)) * 10 + Character.getNumericValue(SessionService.getLoggedInUser().getCode().charAt(6));
-        System.out.println(temp);
         if(temp <= 21){
             sum = 21 - temp;
             if(sum < 18){
@@ -99,6 +98,25 @@ public class LoggedInPatientController {
 
         table.setItems(oblist);
     }
+
+    @FXML
+    public void MakeAppointment(javafx.event.ActionEvent actionEvent) {
+        Parent RegisterView = null;
+        try {
+            RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("MakeAppointment.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene registerViewScene = new Scene(RegisterView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(registerViewScene);
+        window.show();
+
+    }
+
     @FXML
     public void LogOut(javafx.event.ActionEvent actionEvent) {
         Parent RegisterView = null;
