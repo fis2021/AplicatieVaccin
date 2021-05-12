@@ -40,7 +40,7 @@ public class FileUnitateService {
     public static int checkemptyplaces(String cod){
         for(Unitate unitate : unitateRepository.find()) {
             if(Objects.equals(cod,unitate.getCod_unit())) {
-                return 100 - unitate.getContor();
+                return unitate.getLocuri() - unitate.getContor();
             }
         }
         return 0;

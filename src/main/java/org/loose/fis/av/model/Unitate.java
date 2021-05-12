@@ -9,8 +9,10 @@ public class Unitate {
     private String localitate;
     @Id
     private String cod_unit;
-    private Programat progamati[] = new Programat[100];
+    private int locuri = 100;
+    private Programat progamati[] = new Programat[locuri];
     private int i = 0;
+
 
     public Unitate(String nume, String localitate,String cod){
         this.nume = nume;
@@ -21,7 +23,7 @@ public class Unitate {
     public Unitate(){}
 
     public void addProgramat(Programat prog){
-        if(i < 100){
+        if(i < locuri){
             progamati[i] = prog;
             i++;
         }
@@ -39,6 +41,14 @@ public class Unitate {
     }
     public String getCod_unit() {
         return cod_unit;
+    }
+
+    public int getLocuri(){
+        return locuri;
+    }
+
+    public void setLocuri(int locuri){
+        this.locuri = locuri;
     }
 
     public int getContor() {
