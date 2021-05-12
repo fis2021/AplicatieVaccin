@@ -18,10 +18,10 @@ public class SendEmailService {
         String to = mail;
 
         // Sender's email ID needs to be mentioned
-        String from = "axhyourb45@gmail.com";
+        String from = "haisiucandrei@yahoo.com";
 
         // Assuming you are sending email from through gmails smtp
-        String host = "smtp.gmail.com";
+        String host = "smtp.mail.yahoo.com";
 
         // Get system properties
         Properties properties = System.getProperties();
@@ -37,7 +37,7 @@ public class SendEmailService {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("axhyourb45@gmail.com", "A@xhyourb4ev3r*69");
+                return new PasswordAuthentication("haisiucandrei", "bbtcfqpxnjjsrxmv");
 
             }
 

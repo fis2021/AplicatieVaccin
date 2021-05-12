@@ -43,7 +43,7 @@ public class ManagerDeleteAppointmentController {
         {
             if(Objects.equals(pacient.getValue(),user.getSurname()+ " " +user.getName()))
             {
-               // SendEmailService.TrimiteMesaj(user.getUsername(), delmessage.getText());
+                SendEmailService.TrimiteMesaj(user.getUsername(), delmessage.getText());
                 FileUnitateService.deleteAppointmentManager(user.getCode());
                 deletemessage.setText("Programarea a fost stearsa");
 
