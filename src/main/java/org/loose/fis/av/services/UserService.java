@@ -5,6 +5,7 @@ import org.dizitart.no2.objects.ObjectRepository;
 import org.loose.fis.av.exceptions.*;
 import org.loose.fis.av.exceptions.InvalidEmailException;
 import org.loose.fis.av.exceptions.InvalidCodeException;
+import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
 
 import java.nio.charset.StandardCharsets;
@@ -39,11 +40,20 @@ public class UserService {
         checkUserDoesNotExist(username);
         checkUserAndPasswordDoNotMatch(username,password);
         User LoggedInUser=new User("fals","fals","fals","fals","fals","fals");
+        Unitate LoggedInUnitate=new Unitate("fals","fals","fals");
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
                 if (Objects.equals(encodePassword(username, password), user.getPassword()))
                 {
                     LoggedInUser=new User(user.getUsername(),user.getPassword(),user.getSurname(),user.getName(),user.getCode(),user.getRole());
+                    if(Objects.equals(user.getRole(),"Manager")){
+                        for(Unitate unitate : FileUnitateService.unitateRepository.find())
+                        {
+                            if(Objects.equals(user.getCode(),unitate.getCod_unit()))
+                                SessionServiceUnitate.setUnitate(unitate);
+                        }
+                    }
+
                 }
             }
             }

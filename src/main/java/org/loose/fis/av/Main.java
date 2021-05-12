@@ -21,7 +21,7 @@ public class Main extends Application {
         initDirectoryUnitate();
         UserService.initDatabase();
         FileUnitateService.initDatabaseUnit();
-       //FileUnitateService.addUnits();
+        //FileUnitateService.addUnits();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         primaryStage.setTitle("Aplicatie Inscriere Vaccin");
         primaryStage.setScene(new Scene(root, 300, 300));
