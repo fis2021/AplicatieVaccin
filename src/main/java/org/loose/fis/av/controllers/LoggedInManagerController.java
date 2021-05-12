@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.loose.fis.av.model.ModelTable;
 import org.loose.fis.av.model.ModelTableManager;
 import org.loose.fis.av.model.Unitate;
+import org.loose.fis.av.model.Programat;
 import org.loose.fis.av.services.FileUnitateService;
 import org.loose.fis.av.services.SessionServiceUnitate;
 import javafx.scene.control.TableColumn;
@@ -42,7 +43,7 @@ public class LoggedInManagerController {
         numeunit.setText(SessionServiceUnitate.getLoggedInUnitate().getNume());
         codunit.setText(SessionServiceUnitate.getLoggedInUnitate().getCod_unit());
         for (Unitate unitate : FileUnitateService.unitateRepository.find()){
-            if(Objects.equals(unitate,SessionServiceUnitate.getLoggedInUnitate()))
+            if(Objects.equals(unitate.getCod_unit(),SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
             {
                 for(int j=0;j<SessionServiceUnitate.LoggedInUnitate.getContor();j++)
                 {

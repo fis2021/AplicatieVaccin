@@ -12,6 +12,8 @@ public class Programat {
         CNP = cod;
     }
 
+    public Programat(){}
+
     public String getNume() {
         return nume;
     }
