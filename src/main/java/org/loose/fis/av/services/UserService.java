@@ -20,7 +20,7 @@ import static org.loose.fis.av.services.FileSystemService.getPathToFile;
 
 public class UserService {
 
-    private static ObjectRepository<User> userRepository;
+    public static ObjectRepository<User> userRepository;
 
     public static void initDatabase() {
         Nitrite database = Nitrite.builder()
@@ -29,6 +29,7 @@ public class UserService {
 
         userRepository = database.getRepository(User.class);
     }
+
 
     public static void addUser(String username, String password, String surname, String name, String code, String role) throws UsernameAlreadyExistsException, InvalidEmailException, InvalidCodeException {
         checkUserDoesNotAlreadyExist(username);

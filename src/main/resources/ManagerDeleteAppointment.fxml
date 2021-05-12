@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.ManagerDeleteAppointmentController">
+    <children>
+        <Button layoutX="201.0" layoutY="263.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Sterge" />
+        <Button layoutX="351.0" layoutY="263.0" mnemonicParsing="false" onAction="#returnHome" text="Home" />
+        <ChoiceBox fx:id="pacient" layoutX="226.0" layoutY="147.0" prefHeight="25.0" prefWidth="149.0" />
+        <Text layoutX="117.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pacient" wrappingWidth="97.2734375" />
+        <Text layoutX="117.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Motiv Stergere" wrappingWidth="97.2734375" />
+        <TextField fx:id="delmessage" layoutX="225.0" layoutY="196.0" promptText="Mesaj" />
+        <Text fx:id="deletemessage" layoutX="151.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="299.0" />
+    </children>
+</AnchorPane>

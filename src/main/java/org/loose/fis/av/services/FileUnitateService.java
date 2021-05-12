@@ -119,6 +119,16 @@ public class FileUnitateService {
             }
         }
     }
+    public static void deleteAppointmentManager(String cnp) {
+        for(Unitate unitate : unitateRepository.find()){
+            for(int i = 0; i < unitate.getContor(); i++){
+                if(Objects.equals(unitate.getProgramat(i).getCNP(),cnp)){
+                    unitate.deleteProgamat(i);
+                    unitateRepository.update(unitate);
+                }
+            }
+        }
+    }
 
 
 }

@@ -30,11 +30,11 @@ public class LoggedInManagerController {
     @FXML
     public Text codunit;
     @FXML
-    private TableView<ModelTableManager> table;
+    public TableView<ModelTableManager> table;
     @FXML
-    private TableColumn<ModelTableManager,String> col_nume_pacient;
+    public TableColumn<ModelTableManager,String> col_nume_pacient;
     @FXML
-    private TableColumn<ModelTableManager,String> col_data;
+    public TableColumn<ModelTableManager,String> col_data;
 
     ObservableList<ModelTableManager> oblist = FXCollections.observableArrayList();
 
@@ -47,7 +47,9 @@ public class LoggedInManagerController {
             {
                 for(int j=0;j<SessionServiceUnitate.LoggedInUnitate.getContor();j++)
                 {
-                    oblist.add(new ModelTableManager(unitate.getProgramat(j).getNume(),unitate.getProgramat(j).getData()));
+                    if(unitate.getProgramat(j) != null) {
+                        oblist.add(new ModelTableManager(unitate.getProgramat(j).getNume(), unitate.getProgramat(j).getData()));
+                    }
                 }
             }
         }
@@ -57,11 +59,28 @@ public class LoggedInManagerController {
 
     }
 
-
+    @FXML
     public void LogOut(javafx.event.ActionEvent actionEvent) {
         Parent RegisterView = null;
         try {
             RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene registerViewScene = new Scene(RegisterView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(registerViewScene);
+        window.show();
+
+    }
+    @FXML
+    public void deleteAppointmentScene(javafx.event.ActionEvent actionEvent) {
+        Parent RegisterView = null;
+        try {
+            RegisterView = FXMLLoader.load(getClass().getClassLoader().getResource("ManagerDeleteAppointment.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
