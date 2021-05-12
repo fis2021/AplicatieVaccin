@@ -2,6 +2,7 @@ package org.loose.fis.av.services;
 
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.loose.fis.av.exceptions.AppointmentAlreadyExists;
 import org.loose.fis.av.exceptions.InvalidDateException;
 import org.loose.fis.av.model.Programat;
 import org.loose.fis.av.model.Unitate;
@@ -46,8 +47,9 @@ public class FileUnitateService {
         return 0;
     }
 
-    public static void addAppointment(String nume,String data) throws InvalidDateException{
+    public static void addAppointment(String nume,String data) throws InvalidDateException, AppointmentAlreadyExists{
         checkValidDate(data);
+        checkAlreadyAppointment();
         for(Unitate unitate : unitateRepository.find()){
             if(Objects.equals(nume,unitate.getNume())){
                 Programat prog = new Programat(SessionService.getLoggedInUser().getSurname() + " " + SessionService.getLoggedInUser().getName() , data , SessionService.getLoggedInUser().getCode());
@@ -92,6 +94,16 @@ public class FileUnitateService {
             throw new InvalidDateException(data);
         }
 
+    }
+
+    public static void checkAlreadyAppointment() throws AppointmentAlreadyExists {
+        for(Unitate unitate : unitateRepository.find()){
+            for(int j = 0 ; j < unitate.getContor(); j++){
+                if(Objects.equals(unitate.getProgramat(j).getCNP(),SessionService.getLoggedInUser().getCode())){
+                    throw new AppointmentAlreadyExists();
+                }
+            }
+        }
     }
 
 
