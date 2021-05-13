@@ -30,6 +30,8 @@ public class LoggedInManagerController {
     @FXML
     public Text codunit;
     @FXML
+    public Text nrlocuri;
+    @FXML
     public TableView<ModelTableManager> table;
     @FXML
     public TableColumn<ModelTableManager,String> col_nume_pacient;
@@ -42,6 +44,13 @@ public class LoggedInManagerController {
     public void initialize() {
         numeunit.setText(SessionServiceUnitate.getLoggedInUnitate().getNume());
         codunit.setText(SessionServiceUnitate.getLoggedInUnitate().getCod_unit());
+        for (Unitate unitate : FileUnitateService.unitateRepository.find()) {
+            if (Objects.equals(unitate.getCod_unit(), SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
+            {
+                nrlocuri.setText(String.valueOf(unitate.getLocuri()-unitate.getContor()));
+            }
+        }
+
         for (Unitate unitate : FileUnitateService.unitateRepository.find()){
             if(Objects.equals(unitate.getCod_unit(),SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
             {
@@ -85,6 +94,40 @@ public class LoggedInManagerController {
             e.printStackTrace();
         }
         Scene registerViewScene = new Scene(RegisterView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(registerViewScene);
+        window.show();
+
+    }
+    @FXML
+    public void changeModifyNumberAppointmentsScene(javafx.event.ActionEvent actionEvent) {
+        Parent AppNumberView = null;
+        try {
+            AppNumberView = FXMLLoader.load(getClass().getClassLoader().getResource("ModifyAppointmentsNumber.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene registerViewScene = new Scene(AppNumberView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(registerViewScene);
+        window.show();
+
+    }
+    @FXML
+    public void rescheduleAppointmentScene(javafx.event.ActionEvent actionEvent) {
+        Parent RescheduleView = null;
+        try {
+            RescheduleView = FXMLLoader.load(getClass().getClassLoader().getResource("ManagerReschedule.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene registerViewScene = new Scene(RescheduleView);
 
         //This line gets the Stage information
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();

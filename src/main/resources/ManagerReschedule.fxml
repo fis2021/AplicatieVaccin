@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.ManagerRescheduleController">
+    <children>
+        <Button layoutX="201.0" layoutY="263.0" mnemonicParsing="false" onAction="#rescheduleAppointment" text="Reprogrameaza" />
+        <Button layoutX="351.0" layoutY="263.0" mnemonicParsing="false" onAction="#returnHome" text="Home" />
+        <ChoiceBox fx:id="pacientRe" layoutX="225.0" layoutY="96.0" prefHeight="25.0" prefWidth="149.0" />
+        <Text layoutX="117.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pacient:" wrappingWidth="97.2734375" />
+        <Text layoutX="117.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Motiv Stergere:" wrappingWidth="97.2734375" />
+        <TextField fx:id="remessage" layoutX="225.0" layoutY="196.0" promptText="Mesaj" />
+        <Text fx:id="successmessage" layoutX="151.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="299.0" />
+      <Text layoutX="117.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Noua Data:" wrappingWidth="97.2734375" />
+      <TextField fx:id="data" layoutX="225.0" layoutY="144.0" promptText="zz/ll/aaaa" />
+    </children>
+</AnchorPane>

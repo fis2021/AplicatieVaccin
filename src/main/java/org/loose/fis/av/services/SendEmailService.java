@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmailService {
 
-    public static void TrimiteMesaj(String mail,String mesaj) {
+    public static void TrimiteMesaj(String mail,String mesaj,String subiect) {
 
         // Recipient's email ID needs to be mentioned.
         String to = mail;
@@ -57,7 +57,7 @@ public class SendEmailService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Stergere Programare");
+            message.setSubject(subiect);
 
             // Now set the actual message
             message.setText(mesaj);
@@ -71,5 +71,6 @@ public class SendEmailService {
         }
 
     }
+
 
 }

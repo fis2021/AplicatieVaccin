@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.ManagerAvailableAppointmentsController">
+   <children>
+      <Text layoutX="38.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduceti numarul de programari disponibile:" wrappingWidth="260.13671875" />
+      <Button layoutX="75.0" layoutY="318.0" mnemonicParsing="false" onAction="#modifyNumber" text="Modifica Programari Disponibile" />
+      <Button layoutX="393.0" layoutY="318.0" mnemonicParsing="false" onAction="#returnHome" text="Home" />
+      <TextField fx:id="nrprog" layoutX="337.0" layoutY="177.0" />
+      <Text fx:id="successMessage" layoutX="87.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="410.0" />
+   </children>
+</AnchorPane>
