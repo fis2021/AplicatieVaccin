@@ -1,12 +1,22 @@
-package org.loose.fis.sre.controllers;
+package org.loose.fis.av.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import org.loose.fis.sre.exceptions.UsernameAlreadyExistsException;
-import org.loose.fis.sre.services.UserService;
+import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.InvalidCodeException;
+import org.loose.fis.av.exceptions.InvalidEmailException;
+import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
+import org.loose.fis.av.services.UserService;
+
+import java.io.IOException;
 
 public class RegistrationController {
 
@@ -16,6 +26,12 @@ public class RegistrationController {
     private PasswordField passwordField;
     @FXML
     private TextField usernameField;
+    @FXML
+    private TextField surnameField;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField codeField;
     @FXML
     private ChoiceBox role;
 
@@ -27,10 +43,33 @@ public class RegistrationController {
     @FXML
     public void handleRegisterAction() {
         try {
-            UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue());
+            UserService.addUser(usernameField.getText(), passwordField.getText(),surnameField.getText(),nameField.getText(),codeField.getText(),(String) role.getValue());
             registrationMessage.setText("Account created successfully!");
-        } catch (UsernameAlreadyExistsException e) {
+        }
+        catch (UsernameAlreadyExistsException e) {
             registrationMessage.setText(e.getMessage());
         }
+        catch (InvalidEmailException e) {
+            registrationMessage.setText(e.getMessage());
+        }
+        catch (InvalidCodeException e) {
+            registrationMessage.setText(e.getMessage());
+        }
+    }
+
+    public void changeToLogIn(ActionEvent actionEvent) {
+        Parent LogInView = null;
+        try {
+            LogInView = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene logInViewScene = new Scene(LogInView);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+        window.setScene(logInViewScene);
+        window.show();
     }
 }

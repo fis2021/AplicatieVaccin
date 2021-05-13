@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="416.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.LoggedInPatientController">
+   <children>
+      <TextField editable="false" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" text="Patient: " />
+      <TextField editable="false" layoutX="307.0" layoutY="14.0" prefHeight="25.0" prefWidth="101.0" text="Grupa de varsta:" />
+      <SplitPane dividerPositions="0.5040431266846361" layoutY="46.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="598.0">
+               <children>
+                  <TableView fx:id="table" layoutX="-3.0" layoutY="-8.0" prefHeight="192.0" prefWidth="572.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="col_nume" prefWidth="453.0" text="Nume Unitate" />
+                      <TableColumn fx:id="col_loc" minWidth="0.0" prefWidth="144.0" text="Locuri libere" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="169.0" prefWidth="598.0">
+               <children>
+                  <Button layoutX="68.0" layoutY="74.0" mnemonicParsing="false" onAction="#MakeAppointment" prefHeight="39.0" prefWidth="86.0" text="Programeaza" />
+                  <Button layoutX="235.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="128.0" text="Programarile mele" />
+                  <Button layoutX="470.0" layoutY="74.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="39.0" prefWidth="66.0" text="Log out" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Text fx:id="patientname" layoutX="61.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="209.13671875" />
+      <Text fx:id="Vgroup" layoutX="414.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="113.13671875" />
+   </children>
+</AnchorPane>

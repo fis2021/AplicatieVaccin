@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.loose.fis.av.controllers.MakeAppointmentController">
+   <children>
+      <Button layoutX="123.0" layoutY="263.0" mnemonicParsing="false" onAction="#MakeAppointment" text="Programeaza" />
+      <Button layoutX="371.0" layoutY="263.0" mnemonicParsing="false" onAction="#LogOut" text="Home" />
+      <ChoiceBox fx:id="UnitateV" layoutX="225.0" layoutY="86.0" prefHeight="25.0" prefWidth="149.0" />
+      <Text layoutX="117.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unitate Vaccinare" wrappingWidth="97.2734375" />
+      <Text layoutX="117.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Programarii:" wrappingWidth="97.2734375" />
+      <TextField fx:id="data" layoutX="226.0" layoutY="127.0" promptText="dd/mm/yyyy" />
+      <Text fx:id="appointmentmessage" layoutX="277.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>
