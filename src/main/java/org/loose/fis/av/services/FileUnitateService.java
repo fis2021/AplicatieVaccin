@@ -129,6 +129,28 @@ public class FileUnitateService {
             }
         }
     }
+    public static void modifyAppointmentNumber(int nr)
+    {
+        for(Unitate unitate: unitateRepository.find())
+        {
+            if(Objects.equals(unitate.getCod_unit(),SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
+            {
+                unitate.setLocuri(nr);
+                unitateRepository.update(unitate);
+            }
+        }
+    }
+    public static void rescheduleAppointmentManager(String cnp,String data) throws InvalidDateException{
+        checkValidDate(data);
+        for(Unitate unitate : unitateRepository.find()){
+            for(int i = 0; i < unitate.getContor(); i++){
+                if(Objects.equals(unitate.getProgramat(i).getCNP(),cnp)){
+                    unitate.getProgramat(i).setData(data);
+                    unitateRepository.update(unitate);
+                }
+            }
+        }
+    }
 
 
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.InvalidDateException;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
 import org.loose.fis.av.services.FileUnitateService;
@@ -19,40 +20,42 @@ import org.loose.fis.av.services.UserService;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ManagerDeleteAppointmentController {
+public class ManagerRescheduleController {
     @FXML
-    public Text deletemessage;
+    public Text successmessage;
     @FXML
-    public ChoiceBox pacient;
+    public ChoiceBox pacientRe;
     @FXML
-    public TextField delmessage;
+    public TextField remessage;
+    @FXML
+    public TextField data;
     public void initialize(){
         for(Unitate unitate: FileUnitateService.unitateRepository.find()){
             if(Objects.equals(unitate.getCod_unit(), SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
             {
                 for(int i=0; i< unitate.getContor(); i++)
                 {
-                    pacient.getItems().addAll(unitate.getProgramat(i).getNume());
+                    pacientRe.getItems().addAll(unitate.getProgramat(i).getNume());
                 }
             }
         }
     }
     @FXML
-    public void deleteAppointment(){
-        for (User user : UserService.userRepository.find())
-        {
-            if(Objects.equals(pacient.getValue(),user.getSurname()+ " " +user.getName()))
-            {
-                SendEmailService.TrimiteMesaj(user.getUsername(), delmessage.getText(),"Stergere Programare");
-                FileUnitateService.deleteAppointmentManager(user.getCode());
-                deletemessage.setText("Programarea a fost stearsa!");
+    public void rescheduleAppointment(){
+        try {
+            for (User user : UserService.userRepository.find()) {
+                if (Objects.equals(pacientRe.getValue(), user.getSurname() + " " + user.getName())) {
+                    FileUnitateService.rescheduleAppointmentManager(user.getCode(), data.getText());
+                    SendEmailService.TrimiteMesaj(user.getUsername(), remessage.getText() + " Noua data este: " + data.getText(), "Reprogramare");
+                    successmessage.setText("Pacientul a fost reprogramat pe data de " + data.getText());
+
+                }
+
 
             }
-
-
+        }catch (InvalidDateException e){
+            successmessage.setText(e.getMessage());
         }
-
-
     }
     @FXML
     public void returnHome(javafx.event.ActionEvent actionEvent) {
@@ -71,5 +74,4 @@ public class ManagerDeleteAppointmentController {
         window.show();
 
     }
-
 }

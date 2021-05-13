@@ -1,5 +1,6 @@
 package org.loose.fis.av.controllers;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,41 +20,19 @@ import org.loose.fis.av.services.UserService;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ManagerDeleteAppointmentController {
+public class ManagerAvailableAppointmentsController {
     @FXML
-    public Text deletemessage;
+    TextField nrprog;
     @FXML
-    public ChoiceBox pacient;
+    Text successMessage;
+
     @FXML
-    public TextField delmessage;
-    public void initialize(){
-        for(Unitate unitate: FileUnitateService.unitateRepository.find()){
-            if(Objects.equals(unitate.getCod_unit(), SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
-            {
-                for(int i=0; i< unitate.getContor(); i++)
-                {
-                    pacient.getItems().addAll(unitate.getProgramat(i).getNume());
-                }
-            }
-        }
+    public void modifyNumber()
+    {
+        FileUnitateService.modifyAppointmentNumber(Integer.parseInt(nrprog.getText()));
+        successMessage.setText("Numarul de locuri a fost modificat cu succes!");
     }
-    @FXML
-    public void deleteAppointment(){
-        for (User user : UserService.userRepository.find())
-        {
-            if(Objects.equals(pacient.getValue(),user.getSurname()+ " " +user.getName()))
-            {
-                SendEmailService.TrimiteMesaj(user.getUsername(), delmessage.getText(),"Stergere Programare");
-                FileUnitateService.deleteAppointmentManager(user.getCode());
-                deletemessage.setText("Programarea a fost stearsa!");
 
-            }
-
-
-        }
-
-
-    }
     @FXML
     public void returnHome(javafx.event.ActionEvent actionEvent) {
         Parent homeView = null;
