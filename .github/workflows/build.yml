@@ -31,6 +31,9 @@ jobs:
         with:
           java-version: ${{ matrix.java }} # The JDK version to make available on the path.
 
+	- name: Make gradlew executable
+      	run: chmod +x ./gradlew
+
       # Builds and installs the artifact
       - name: Build and Install
         run: ./gradlew clean build
