@@ -6,7 +6,7 @@ name: Build Artifact
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ revert-7-FixedBug ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,6 +30,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }} # The JDK version to make available on the path.
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       # Builds and installs the artifact
       - name: Build and Install
