@@ -51,6 +51,15 @@ public class Unitate {
         this.locuri = locuri;
     }
 
+    public void deleteProgamat(int poz){
+        for(int j = poz; j < i; j++)
+        {
+            progamati[j] = progamati[j+1];
+        }
+        i--;
+
+    }
+
     public int getContor() {
         return i;
     }

@@ -99,8 +99,22 @@ public class FileUnitateService {
     public static void checkAlreadyAppointment() throws AppointmentAlreadyExists {
         for(Unitate unitate : unitateRepository.find()){
             for(int j = 0 ; j < unitate.getContor(); j++){
-                if(Objects.equals(unitate.getProgramat(j).getCNP(),SessionService.getLoggedInUser().getCode())){
-                    throw new AppointmentAlreadyExists();
+                if(unitate.getProgramat(j) != null){
+                    if(Objects.equals(unitate.getProgramat(j).getCNP(),SessionService.getLoggedInUser().getCode())){
+                        throw new AppointmentAlreadyExists();
+                    }
+                }
+
+            }
+        }
+    }
+
+    public static void deleteAppointment() {
+        for(Unitate unitate : unitateRepository.find()){
+            for(int i = 0; i < unitate.getContor(); i++){
+                if(Objects.equals(unitate.getProgramat(i).getCNP(),SessionService.getLoggedInUser().getCode())){
+                    unitate.deleteProgamat(i);
+                    unitateRepository.update(unitate);
                 }
             }
         }
