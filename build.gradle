@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.openjfx:javafx-fxml:15.0.1'
     implementation 'org.dizitart:nitrite:3.4.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
 }
 
 mainClassName = 'org.loose.fis.av.Main'
