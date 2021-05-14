@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.EmptyFieldException;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
 import org.loose.fis.av.services.FileUnitateService;
@@ -39,17 +40,21 @@ public class ManagerDeleteAppointmentController {
     }
     @FXML
     public void deleteAppointment(){
-        for (User user : UserService.userRepository.find())
-        {
-            if(Objects.equals(pacient.getValue(),user.getSurname()+ " " +user.getName()))
+        try {
+            UserService.chechemptychoicebox(pacient);
+            UserService.chechemptyfield(delmessage);
+            for (User user : UserService.userRepository.find())
             {
-                SendEmailService.TrimiteMesaj(user.getUsername(), delmessage.getText(),"Stergere Programare");
-                FileUnitateService.deleteAppointmentManager(user.getCode());
-                deletemessage.setText("Programarea a fost stearsa!");
+                if(Objects.equals(pacient.getValue(),user.getSurname()+ " " +user.getName()))
+                {
+                    SendEmailService.TrimiteMesaj(user.getUsername(), delmessage.getText(),"Stergere Programare");
+                    FileUnitateService.deleteAppointmentManager(user.getCode());
+                    deletemessage.setText("Programarea a fost stearsa!");
 
+                }
             }
-
-
+        }catch (EmptyFieldException e){
+            deletemessage.setText(e.getMessage());
         }
 
 

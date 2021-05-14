@@ -10,9 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.loose.fis.av.exceptions.AppointmentAlreadyExists;
+import org.loose.fis.av.exceptions.EmptyFieldException;
 import org.loose.fis.av.exceptions.InvalidDateException;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.services.FileUnitateService;
+import org.loose.fis.av.services.UserService;
 
 import java.io.IOException;
 
@@ -35,6 +37,8 @@ public class MakeAppointmentController {
     @FXML
     public void MakeAppointment(){
         try{
+            UserService.chechemptychoicebox(UnitateV);
+            UserService.chechemptyfield(data);
             FileUnitateService.addAppointment((String) UnitateV.getValue(),data.getText());
             appointmentmessage.setText("Programarea a fost facuta cu success");
         }
@@ -42,6 +46,9 @@ public class MakeAppointmentController {
             appointmentmessage.setText(e.getMessage());
         }
         catch (AppointmentAlreadyExists e) {
+            appointmentmessage.setText(e.getMessage());
+        }
+        catch (EmptyFieldException e){
             appointmentmessage.setText(e.getMessage());
         }
 

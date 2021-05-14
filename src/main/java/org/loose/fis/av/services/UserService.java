@@ -1,5 +1,8 @@
 package org.loose.fis.av.services;
 
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.loose.fis.av.exceptions.*;
@@ -97,8 +100,17 @@ public class UserService {
         }
     }
 
+    public static boolean checkCNP(String code){
+        for(int i = 0; i < 13; i++){
+            if(!Character.isDigit(code.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static void checkValidCode (String code, String role) throws InvalidCodeException {
-        if (code.length() != 13 && Objects.equals("Patient", role)) {
+        if ((code.length() != 13 && Objects.equals("Patient", role)) || ((checkCNP(code) == false) && Objects.equals("Patient", role))) {
             throw new InvalidCodeException(code);
         }
         else {
@@ -150,5 +162,22 @@ public class UserService {
         return md;
     }
 
+    public static void chechemptypassword(PasswordField field) throws EmptyFieldException{
+        if(field.getText().isEmpty()){
+            throw new EmptyFieldException();
+        }
+    }
+
+    public static void chechemptyfield(TextField field) throws EmptyFieldException{
+        if(field.getText().isEmpty()){
+            throw new EmptyFieldException();
+        }
+    }
+
+    public static void chechemptychoicebox(ChoiceBox field) throws EmptyFieldException{
+        if(field.getValue() == null){
+            throw new EmptyFieldException();
+        }
+    }
 
 }
