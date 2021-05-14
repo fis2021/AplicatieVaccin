@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.EmptyFieldException;
 import org.loose.fis.av.exceptions.InvalidDateException;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
@@ -43,6 +44,8 @@ public class ManagerRescheduleController {
     @FXML
     public void rescheduleAppointment(){
         try {
+            UserService.chechemptychoicebox(pacientRe);
+            UserService.chechemptyfield(remessage);
             for (User user : UserService.userRepository.find()) {
                 if (Objects.equals(pacientRe.getValue(), user.getSurname() + " " + user.getName())) {
                     FileUnitateService.rescheduleAppointmentManager(user.getCode(), data.getText());
@@ -51,9 +54,11 @@ public class ManagerRescheduleController {
 
                 }
 
-
             }
         }catch (InvalidDateException e){
+            successmessage.setText(e.getMessage());
+        }
+        catch (EmptyFieldException e){
             successmessage.setText(e.getMessage());
         }
     }

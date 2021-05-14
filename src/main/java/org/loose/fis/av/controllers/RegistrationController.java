@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.EmptyFieldException;
 import org.loose.fis.av.exceptions.InvalidCodeException;
 import org.loose.fis.av.exceptions.InvalidEmailException;
 import org.loose.fis.av.exceptions.UsernameAlreadyExistsException;
@@ -43,6 +44,12 @@ public class RegistrationController {
     @FXML
     public void handleRegisterAction() {
         try {
+            UserService.chechemptyfield(usernameField);
+            UserService.chechemptypassword(passwordField);
+            UserService.chechemptyfield(surnameField);
+            UserService.chechemptyfield(nameField);
+            UserService.chechemptyfield(codeField);
+            UserService.chechemptychoicebox(role);
             UserService.addUser(usernameField.getText(), passwordField.getText(),surnameField.getText(),nameField.getText(),codeField.getText(),(String) role.getValue());
             registrationMessage.setText("Account created successfully!");
         }
@@ -53,6 +60,9 @@ public class RegistrationController {
             registrationMessage.setText(e.getMessage());
         }
         catch (InvalidCodeException e) {
+            registrationMessage.setText(e.getMessage());
+        }
+        catch (EmptyFieldException e){
             registrationMessage.setText(e.getMessage());
         }
     }
