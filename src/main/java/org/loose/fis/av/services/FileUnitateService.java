@@ -3,7 +3,9 @@ package org.loose.fis.av.services;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.loose.fis.av.exceptions.AppointmentAlreadyExists;
+import org.loose.fis.av.exceptions.InvalidAvailableAppointments;
 import org.loose.fis.av.exceptions.InvalidDateException;
+import org.loose.fis.av.exceptions.MustBeNumberException;
 import org.loose.fis.av.model.Programat;
 import org.loose.fis.av.model.Unitate;
 
@@ -129,12 +131,16 @@ public class FileUnitateService {
             }
         }
     }
-    public static void modifyAppointmentNumber(int nr)
+    public static void modifyAppointmentNumber(int nr) throws InvalidAvailableAppointments
     {
         for(Unitate unitate: unitateRepository.find())
         {
             if(Objects.equals(unitate.getCod_unit(),SessionServiceUnitate.getLoggedInUnitate().getCod_unit()))
             {
+                if(nr<unitate.getContor())
+                {
+                    throw new InvalidAvailableAppointments();
+                }
                 unitate.setLocuri(nr);
                 unitateRepository.update(unitate);
             }
@@ -148,6 +154,16 @@ public class FileUnitateService {
                     unitate.getProgramat(i).setData(data);
                     unitateRepository.update(unitate);
                 }
+            }
+        }
+    }
+    public static void isNumber(String number) throws MustBeNumberException
+    {
+        for(int i=0;i<number.length();i++)
+        {
+            if(!Character.isDigit(number.charAt(i)))
+            {
+                throw new MustBeNumberException();
             }
         }
     }

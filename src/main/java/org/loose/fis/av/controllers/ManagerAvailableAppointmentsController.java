@@ -10,6 +10,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.loose.fis.av.exceptions.InvalidAvailableAppointments;
+import org.loose.fis.av.exceptions.MustBeNumberException;
 import org.loose.fis.av.model.Unitate;
 import org.loose.fis.av.model.User;
 import org.loose.fis.av.services.FileUnitateService;
@@ -29,8 +31,19 @@ public class ManagerAvailableAppointmentsController {
     @FXML
     public void modifyNumber()
     {
-        FileUnitateService.modifyAppointmentNumber(Integer.parseInt(nrprog.getText()));
-        successMessage.setText("Numarul de locuri a fost modificat cu succes!");
+        try{
+            FileUnitateService.isNumber(nrprog.getText());
+            FileUnitateService.modifyAppointmentNumber(Integer.parseInt(nrprog.getText()));
+            successMessage.setText("Numarul de locuri a fost modificat cu succes!");
+        }catch (InvalidAvailableAppointments e)
+        {
+            successMessage.setText(e.getMessage());
+        }
+        catch (MustBeNumberException e)
+        {
+            successMessage.setText(e.getMessage());
+        }
+
     }
 
     @FXML
