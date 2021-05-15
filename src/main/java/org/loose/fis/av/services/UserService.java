@@ -83,7 +83,7 @@ public class UserService {
                 throw new UsernameAlreadyExistsException(username);
         }
     }
-    private static void checkUserDoesNotExist(String username) throws UserDoesNotExist {
+    public static void checkUserDoesNotExist(String username) throws UserDoesNotExist {
         boolean check =false;
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
