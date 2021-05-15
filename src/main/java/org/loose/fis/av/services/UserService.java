@@ -109,12 +109,21 @@ public class UserService {
         return true;
     }
 
+    public static boolean checkUnit(String code){
+        for(Unitate unitate : FileUnitateService.unitateRepository.find()){
+            if(Objects.equals(code,unitate.getCod_unit())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void checkValidCode (String code, String role) throws InvalidCodeException {
         if ((code.length() != 13 && Objects.equals("Patient", role)) || ((checkCNP(code) == false) && Objects.equals("Patient", role))) {
             throw new InvalidCodeException(code);
         }
         else {
-            if(code.length() != 3 && Objects.equals("Manager",role)){
+            if((code.length() != 3 && Objects.equals("Manager",role)) || ((checkUnit(code) == false) && Objects.equals("Manager",role))){
                 throw new InvalidCodeException(code);
             }
         }
@@ -178,6 +187,34 @@ public class UserService {
         if(field.getValue() == null){
             throw new EmptyFieldException();
         }
+    }
+
+    public static int grupvarsta(){
+        int temp = 0;
+        int sum = 0;
+        int grp = 0;
+        temp = Character.getNumericValue(SessionService.getLoggedInUser().getCode().charAt(5)) * 10 + Character.getNumericValue(SessionService.getLoggedInUser().getCode().charAt(6));
+        if(temp <= 21){
+            sum = 21 - temp;
+            if(sum < 18){
+                grp = 1;
+            }
+            else{
+                if(sum >= 18 && sum < 21){
+                    grp = 2;
+                }
+            }
+        }
+        else{
+            sum = 121 - temp;
+            if(sum < 65){
+                grp = 2;
+            }
+            else{
+                grp = 3;
+            }
+        }
+        return grp;
     }
 
 }
