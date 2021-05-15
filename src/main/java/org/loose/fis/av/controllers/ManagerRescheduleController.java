@@ -44,8 +44,8 @@ public class ManagerRescheduleController {
     @FXML
     public void rescheduleAppointment(){
         try {
-            UserService.chechemptychoicebox(pacientRe);
-            UserService.chechemptyfield(remessage);
+            UserService.checkemptyfield((String) pacientRe.getValue());
+            UserService.checkemptyfield(remessage.getText());
             for (User user : UserService.userRepository.find()) {
                 if (Objects.equals(pacientRe.getValue(), user.getSurname() + " " + user.getName())) {
                     FileUnitateService.rescheduleAppointmentManager(user.getCode(), data.getText());

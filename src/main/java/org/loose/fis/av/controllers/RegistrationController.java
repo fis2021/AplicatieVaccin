@@ -44,12 +44,12 @@ public class RegistrationController {
     @FXML
     public void handleRegisterAction() {
         try {
-            UserService.chechemptyfield(usernameField);
-            UserService.chechemptypassword(passwordField);
-            UserService.chechemptyfield(surnameField);
-            UserService.chechemptyfield(nameField);
-            UserService.chechemptyfield(codeField);
-            UserService.chechemptychoicebox(role);
+            UserService.checkemptyfield(usernameField.getText());
+            UserService.checkemptyfield(passwordField.getText());
+            UserService.checkemptyfield(surnameField.getText());
+            UserService.checkemptyfield(nameField.getText());
+            UserService.checkemptyfield(codeField.getText());
+            UserService.checkemptyfield((String) role.getValue());
             UserService.addUser(usernameField.getText(), passwordField.getText(),surnameField.getText(),nameField.getText(),codeField.getText(),(String) role.getValue());
             registrationMessage.setText("Account created successfully!");
         }

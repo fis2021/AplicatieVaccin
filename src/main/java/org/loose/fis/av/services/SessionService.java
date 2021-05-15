@@ -10,6 +10,9 @@ public class SessionService{
         LoggedInUser = user;
     }
 
+    public static void closeSession() {
+        LoggedInUser = null;
+    }
     public static User getLoggedInUser(){
         return LoggedInUser;
     }

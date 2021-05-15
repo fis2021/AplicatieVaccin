@@ -24,13 +24,18 @@ import static org.loose.fis.av.services.FileSystemService.getPathToFile;
 public class UserService {
 
     public static ObjectRepository<User> userRepository;
+    private static Nitrite database;
 
     public static void initDatabase() {
-        Nitrite database = Nitrite.builder()
+         database = Nitrite.builder()
                 .filePath(getPathToFile("Aplicatie-Vaccin.db").toFile())
                 .openOrCreate("test", "test");
 
         userRepository = database.getRepository(User.class);
+    }
+
+    public static void closeDatabase() {
+        database.close();
     }
 
 
@@ -40,6 +45,11 @@ public class UserService {
         checkValidCode(code,role);
         userRepository.insert(new User(username, encodePassword(username, password), surname, name, code, role));
     }
+
+    public static List<User> getAllUsersTEST(){
+        return userRepository.find().toList();
+    }
+
     public static User logIn(String username,String password) throws UserDoesNotExist,UsernameAndPasswordDoNotMatchException{
         checkUserDoesNotExist(username);
         checkUserAndPasswordDoNotMatch(username,password);
@@ -60,7 +70,7 @@ public class UserService {
 
                 }
             }
-            }
+        }
         return LoggedInUser;
 
         }
@@ -84,7 +94,7 @@ public class UserService {
             throw new UserDoesNotExist(username);
         }
     }
-    private static void checkUserAndPasswordDoNotMatch(String username,String password) throws UsernameAndPasswordDoNotMatchException {
+    public static void checkUserAndPasswordDoNotMatch(String username,String password) throws UsernameAndPasswordDoNotMatchException {
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
                 if (!Objects.equals(encodePassword(username, password), user.getPassword()))
@@ -94,7 +104,7 @@ public class UserService {
         }
     }
 
-    private static void checkValidEmail(String username) throws InvalidEmailException {
+    public static void checkValidEmail(String username) throws InvalidEmailException {
         if(username.contains("@yahoo.com") == false && username.contains("@gmail.com") == false && username.contains("@student.upt.ro") == false){
             throw new InvalidEmailException(username);
         }
@@ -118,15 +128,19 @@ public class UserService {
         return false;
     }
 
-    private static void checkValidCode (String code, String role) throws InvalidCodeException {
-        if ((code.length() != 13 && Objects.equals("Patient", role)) || ((checkCNP(code) == false) && Objects.equals("Patient", role))) {
-            throw new InvalidCodeException(code);
-        }
-        else {
-            if((code.length() != 3 && Objects.equals("Manager",role)) || ((checkUnit(code) == false) && Objects.equals("Manager",role))){
+    public static void checkValidCode (String code, String role) throws InvalidCodeException {
+        if(Objects.equals("Patient",role)){
+            if((code.length() != 13) || (checkCNP(code) == false)){
                 throw new InvalidCodeException(code);
             }
         }
+        else
+            if(Objects.equals("Manager",role)){
+                if( (code.length() != 3) ||  (checkUnit(code) == false)){
+                    throw new InvalidCodeException(code);
+                }
+            }
+
     }
 
     public static boolean checkifAppointmentExists(){
@@ -171,23 +185,13 @@ public class UserService {
         return md;
     }
 
-    public static void chechemptypassword(PasswordField field) throws EmptyFieldException{
-        if(field.getText().isEmpty()){
+
+    public static void checkemptyfield(String field) throws EmptyFieldException{
+        if(field.isEmpty()){
             throw new EmptyFieldException();
         }
     }
 
-    public static void chechemptyfield(TextField field) throws EmptyFieldException{
-        if(field.getText().isEmpty()){
-            throw new EmptyFieldException();
-        }
-    }
-
-    public static void chechemptychoicebox(ChoiceBox field) throws EmptyFieldException{
-        if(field.getValue() == null){
-            throw new EmptyFieldException();
-        }
-    }
 
     public static int grupvarsta(){
         int temp = 0;

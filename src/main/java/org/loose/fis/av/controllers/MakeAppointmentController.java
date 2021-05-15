@@ -37,8 +37,8 @@ public class MakeAppointmentController {
     @FXML
     public void MakeAppointment(){
         try{
-            UserService.chechemptychoicebox(UnitateV);
-            UserService.chechemptyfield(data);
+            UserService.checkemptyfield((String)UnitateV.getValue());
+            UserService.checkemptyfield(data.getText());
             FileUnitateService.addAppointment((String) UnitateV.getValue(),data.getText());
             appointmentmessage.setText("Programarea a fost facuta cu success");
         }
