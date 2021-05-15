@@ -16,22 +16,34 @@ import java.util.Objects;
 
 
 public class FileUnitateService {
-    private static final String APPLICATION_FOLDER_UNITATE = ".aplicatie-vaccin-unitate";
+    private static String APPLICATION_FOLDER_UNITATE = ".aplicatie-vaccin-unitate";
     private static final String USER_FOLDER_UNITATE = System.getProperty("user.home");
-    public static final Path APPLICATION_HOME_PATH_UNITATE = Paths.get(USER_FOLDER_UNITATE, APPLICATION_FOLDER_UNITATE);
+    private static Nitrite database;
+
+    public static void setApplicationFolderUnitate(String applicationFolderUnitate){
+        APPLICATION_FOLDER_UNITATE = applicationFolderUnitate;
+    }
+
+    public static Path getApplicationHomePath(){
+        return Paths.get(USER_FOLDER_UNITATE, APPLICATION_FOLDER_UNITATE);
+    }
 
     public static Path getPathToUnitate(String... path) {
-        return APPLICATION_HOME_PATH_UNITATE.resolve(Paths.get(".", path));
+        return getApplicationHomePath().resolve(Paths.get(".", path));
     }
 
     public static ObjectRepository<Unitate> unitateRepository;
 
     public static void initDatabaseUnit() {
-        Nitrite database = Nitrite.builder()
+        database = Nitrite.builder()
                 .filePath(getPathToUnitate("Aplicatie-Vaccin-Unitate.db").toFile())
                 .openOrCreate("test", "test");
 
         unitateRepository = database.getRepository(Unitate.class);
+    }
+
+    public static void closeDatabase() {
+        database.close();
     }
 
     public static void addUnits(){
@@ -106,7 +118,6 @@ public class FileUnitateService {
                         throw new AppointmentAlreadyExists();
                     }
                 }
-
             }
         }
     }

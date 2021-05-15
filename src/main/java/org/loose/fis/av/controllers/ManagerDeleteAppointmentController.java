@@ -41,8 +41,8 @@ public class ManagerDeleteAppointmentController {
     @FXML
     public void deleteAppointment(){
         try {
-            UserService.chechemptychoicebox(pacient);
-            UserService.chechemptyfield(delmessage);
+            UserService.checkemptyfield( (String) pacient.getValue());
+            UserService.checkemptyfield(delmessage.getText());
             for (User user : UserService.userRepository.find())
             {
                 if(Objects.equals(pacient.getValue(),user.getSurname()+ " " +user.getName()))

@@ -29,14 +29,15 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void initDirectory() {
-        Path applicationHomePath = FileSystemService.APPLICATION_HOME_PATH;
+    public static void initDirectory() {
+        Path applicationHomePath = FileSystemService.getApplicationHomePath();
         if (!Files.exists(applicationHomePath))
             applicationHomePath.toFile().mkdirs();
     }
 
-    private void initDirectoryUnitate() {
-        Path applicationHomePathUnitate = FileUnitateService.APPLICATION_HOME_PATH_UNITATE;
+
+    public static void initDirectoryUnitate() {
+        Path applicationHomePathUnitate = FileUnitateService.getApplicationHomePath();
         if(!Files.exists(applicationHomePathUnitate))
             applicationHomePathUnitate.toFile().mkdirs();
     }
