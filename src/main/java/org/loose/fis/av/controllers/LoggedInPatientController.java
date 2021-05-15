@@ -35,34 +35,6 @@ import static org.loose.fis.av.services.FileSystemService.getPathToFile;
 
 public class LoggedInPatientController {
 
-    public int grupvarsta(){
-        int temp = 0;
-        int sum = 0;
-        int grp = 0;
-        temp = Character.getNumericValue(SessionService.getLoggedInUser().getCode().charAt(5)) * 10 + Character.getNumericValue(SessionService.getLoggedInUser().getCode().charAt(6));
-        if(temp <= 21){
-            sum = 21 - temp;
-            if(sum < 18){
-                grp = 1;
-            }
-            else{
-                if(sum >= 18 && sum < 21){
-                    grp = 2;
-                }
-            }
-        }
-        else{
-            sum = 121 - temp;
-            if(sum < 65){
-                grp = 2;
-            }
-            else{
-                grp = 3;
-            }
-        }
-        return grp;
-    }
-
     @FXML
     private TableView<ModelTable> table;
     @FXML
@@ -82,15 +54,15 @@ public class LoggedInPatientController {
     @FXML
     public void initialize(){
         patientname.setText(SessionService.getLoggedInUser().getSurname() + " " + SessionService.getLoggedInUser().getName());
-        if(grupvarsta() == 1){
+        if(UserService.grupvarsta() == 1){
             Vgroup.setText("I C");
         }
         else{
-            if(grupvarsta() == 2){
+            if(UserService.grupvarsta() == 2){
                 Vgroup.setText("II A");
             }
             else{
-                if(grupvarsta() == 3){
+                if(UserService.grupvarsta() == 3){
                     Vgroup.setText("III P");
                 }
             }

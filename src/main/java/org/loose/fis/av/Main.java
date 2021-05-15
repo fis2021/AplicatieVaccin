@@ -22,6 +22,7 @@ public class Main extends Application {
         UserService.initDatabase();
         FileUnitateService.initDatabaseUnit();
         //FileUnitateService.addUnits();
+        // Se decomenteaza functia de mai sus daca este prima data cand rulati aplicatia.
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         primaryStage.setTitle("Aplicatie Inscriere Vaccin");
         primaryStage.setScene(new Scene(root, 300, 300));

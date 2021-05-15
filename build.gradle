@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'jacoco'
 }
 
 javafx {
@@ -28,6 +29,22 @@ dependencies {
     implementation 'org.dizitart:nitrite:3.4.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
     implementation 'com.sun.mail:javax.mail:1.6.2'
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+
+    testCompile 'org.testfx:testfx-core:4.0.16-alpha'
+    testCompile 'org.testfx:testfx-junit5:4.0.16-alpha'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    testCompile group: 'commons-io', name: 'commons-io', version: '2.8.0'
+
 }
 
 mainClassName = 'org.loose.fis.av.Main'
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
