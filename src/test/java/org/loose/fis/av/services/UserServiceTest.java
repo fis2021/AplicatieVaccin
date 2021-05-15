@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.loose.fis.av.Main;
 import org.loose.fis.av.exceptions.*;
+import org.loose.fis.av.model.User;
 
 
 import java.io.IOException;
@@ -142,6 +143,40 @@ class UserServiceTest {
         assertDoesNotThrow( () -> UserService.addUser("test_patient3@yahoo.com","test","Test","test","1010140111111","Patient"));
         assertDoesNotThrow( () -> SessionService.setUser(UserService.logIn("test_patient3@yahoo.com","test")));
         assertEquals(3, UserService.grupvarsta());
+
+    }
+    @Test
+    @DisplayName("Check the log in function for patient")
+    void checkloginpatient(){
+        assertDoesNotThrow( () -> UserService.addUser("test_patient@yahoo.com","test","Test","test","1010106111111","Patient"));
+        assertDoesNotThrow( () -> SessionService.setUser(UserService.logIn("test_patient@yahoo.com","test")));
+        User user =new User("test_patient@yahoo.com","test","Test","test","1010106111111","Patient");
+        assertEquals(user.getUsername(),SessionService.getLoggedInUser().getUsername());
+
+    }
+    @Test
+    @DisplayName("Check the log in function for manager")
+    void checkloginmanager(){
+        assertDoesNotThrow( () -> UserService.addUser("test_manager@yahoo.com","test","Test","test","TM1","Manager"));
+        assertDoesNotThrow( () -> SessionService.setUser(UserService.logIn("test_manager@yahoo.com","test")));
+        User user =new User("test_manager@yahoo.com","test","Test","test","TM1","Manager");
+        assertEquals(user.getUsername(),SessionService.getLoggedInUser().getUsername());
+
+    }
+
+    @Test
+    @DisplayName("Check if user does not exist")
+    void checkuserdoesnotexist(){
+        assertDoesNotThrow( () -> UserService.addUser("test_patient@yahoo.com","test","Test","test","1010106111111","Patient"));
+        assertDoesNotThrow( () -> UserService.checkUserDoesNotExist("test_patient@yahoo.com"));
+        assertThrows(UserDoesNotExist.class, () -> UserService.checkUserDoesNotExist("mihaita"));
+    }
+    @Test
+    @DisplayName("Check if username and password do not match")
+    void checkuserpwdonotmatch(){
+        assertDoesNotThrow( () -> UserService.addUser("test_patient@yahoo.com","test","Test","test","1010106111111","Patient"));
+        assertDoesNotThrow( () -> UserService.checkUserAndPasswordDoNotMatch("test_patient@yahoo.com","test"));
+        assertThrows(UsernameAndPasswordDoNotMatchException.class, () -> UserService.checkUserAndPasswordDoNotMatch("test_patient@yahoo.com","gresita"));
 
     }
 }
