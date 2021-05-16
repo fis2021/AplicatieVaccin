@@ -138,6 +138,8 @@ class RegistrationControllerTest {
         assertEquals("All fields must be filled out",robot.lookup("#registrationMessage").queryText().getText());
 
         robot.clickOn("#codeField").write(CNP);
+        robot.clickOn("Register");
+        assertEquals("All fields must be filled out",robot.lookup("#registrationMessage").queryText().getText());
         robot.clickOn("#role").clickOn("Patient");
         robot.clickOn("Register");
 

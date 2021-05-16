@@ -46,6 +46,7 @@ public class ManagerRescheduleController {
         try {
             UserService.checkemptyfield((String) pacientRe.getValue());
             UserService.checkemptyfield(remessage.getText());
+            UserService.checkemptyfield(data.getText());
             for (User user : UserService.userRepository.find()) {
                 if (Objects.equals(pacientRe.getValue(), user.getSurname() + " " + user.getName())) {
                     FileUnitateService.rescheduleAppointmentManager(user.getCode(), data.getText());
