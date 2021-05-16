@@ -187,6 +187,11 @@ public class UserService {
 
 
     public static void checkemptyfield(String field) throws EmptyFieldException{
+        if(field == null)
+        {
+            throw new EmptyFieldException();
+        }
+        else
         if(field.isEmpty()){
             throw new EmptyFieldException();
         }
