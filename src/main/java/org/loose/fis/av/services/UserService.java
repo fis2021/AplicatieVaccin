@@ -209,7 +209,7 @@ public class UserService {
                 grp = 1;
             }
             else{
-                if(sum >= 18 && sum < 21){
+                if(sum >= 18 && sum <= 21){
                     grp = 2;
                 }
             }
